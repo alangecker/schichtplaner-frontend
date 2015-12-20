@@ -1,0 +1,21 @@
+<html>
+<body>
+<input type="text" id="param1" /><a href="javascript:send()">Send</a>
+<textarea id="log"></textarea>
+<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+<script>
+
+  var socket = io('http://localhost:3000');
+  socket.on('connect', function () {
+    socket.emit('session', 'SESSION_123456789');
+    socket.emit('meta', {auth:'asd'})
+    socket.emit('GET', '/thread/14/comments', {}, '74s45d784a5s8d4');
+  });
+function send() {
+    socket.emit('GET',document.getElementById('param1').value, 'test')
+    // socket.emit('POST', '/login', {username:'test2', password:'asdfasdf'}, '74s45d784a5s8d4');
+  }
+
+</script>
+</body>
+</html>

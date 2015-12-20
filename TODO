@@ -1,0 +1,99 @@
+- Shifts
+    - Add
+    - Move
+    - Select Groups
+
+
+
+- Benachrichtigungen
+- Report
+
+
+
+
+
+
+
+
+
+User
+---------------------
+email
+fullname
+name
+password
+photo
+birthday
+mobile
+referer User
+!@hasMany groups
+
+eventsettings
+    !Hauptposition 
+    !Aufbau-Score (1 bis 10)
+    Preferenzen (Position)
+    Lieblingspartner
+    Zeit anwesend
+
+
+Shift
+------------------
+possible groups
+User
+score
+
+
+
+
+Score
+---------------------------
+Preferenzen (einziger auf der Position oder viele?)
+Hauptposition?
+Lieblingspartner
+Pausenzeit (andere Schicht / Schlaf)
+0 <= Nicht anwesend
+0 <= Falsche Gruppe
+0 <= Zeitgleich?
+
+
+Auslastung
+----------------------------
+Anzahl Schichten
+Härte der Schichten
+Aufbau
+Extraschicht?
+
+
+
+
+BANDS!
+
+eventsettings
+    !Hauptposition 
+    !Aufbau-Score (1 bis 10)
+    Preferenzen (Position)
+    Lieblingspartner
+    Zeit anwesend
+
+
+Auslastung
+----------------------------
+Anzahl Schichten
+H\u00e4rte der Schichten
+Aufbau
+Extraschicht?
+
+
+Auslastung
+----------------------------
+Anzahl Schichten
+H\u00e4rte der Schichten
+Aufbau
+Extraschicht?
+
+Auslastung
+----------------------------
+Anzahl Schichten
+H\u00e4rte der Schichten
+Aufbau
+Extraschicht?

@@ -1,4 +1,4 @@
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 api = require 'api'
 constants = require './constants'
 

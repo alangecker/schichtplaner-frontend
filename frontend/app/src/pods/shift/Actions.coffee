@@ -1,4 +1,4 @@
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 constants = require './constants'
 
 module.exports = liquidFlux.createActions
@@ -16,6 +16,13 @@ module.exports = liquidFlux.createActions
       start: start
       end: end
     @dispatch constants.UPDATE, payload
+
+  updateGroups: (shiftId, groups) ->
+    payload =
+      id: shiftId
+      groups: groups
+    @dispatch constants.UPDATE, payload
+
 
   delete: (shiftId) ->
     @dispatch constants.DELETE, shiftId

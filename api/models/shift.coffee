@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) ->
     ScheduleId: DataTypes.INTEGER
     start: DataTypes.STRING
     end: DataTypes.STRING
+    comment: DataTypes.TEXT
     UserId: DataTypes.INTEGER
     score: DataTypes.INTEGER
+
   )

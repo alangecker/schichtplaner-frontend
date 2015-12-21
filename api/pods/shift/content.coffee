@@ -3,7 +3,6 @@ Store = require './Store'
 
 module.exports =
   scheduleShiftList: (params,callback) ->
-    console.log params
     Store.getFullShiftsBySchedule(params.scheduleId).then (response) ->
       list = []
 

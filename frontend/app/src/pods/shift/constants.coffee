@@ -1,4 +1,4 @@
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 
 module.exports = liquidFlux.constants 'SHIFT', [
   'ADD'

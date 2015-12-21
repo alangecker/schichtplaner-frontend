@@ -1,5 +1,6 @@
 React = require 'react'
 moment = require 'moment'
+
 module.exports = React.createClass
 
   displayName: 'HourGridLine'

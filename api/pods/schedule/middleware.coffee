@@ -3,7 +3,7 @@ moment = require 'moment'
 module.exports =
 
   createScheduleValidation: (req, next, error) ->
-
+    console.log req, 'middleware'
     return error(400) unless req.body instanceof Object
     return error(406, 'SCHEDULE_CREATE_MISSING') unless (req.body.eventId and typeof req.body.title is 'string' and req.body.title)
     start = moment(req.body.start)

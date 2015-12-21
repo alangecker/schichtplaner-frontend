@@ -1,4 +1,4 @@
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 Queries = require './Queries'
 constants = require './constants'
 
@@ -22,6 +22,7 @@ module.exports = document.sstore = liquidFlux.createStore
 
   update:
     groups: (groups) ->
+      console.log groups, 'test'
       @state.groups = {}
       for group in groups
         @state.groups[group.id] = group.name

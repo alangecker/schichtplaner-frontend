@@ -1,4 +1,5 @@
 moment = require 'moment'
+
 module.exports =
   checks:
     title: (value) ->

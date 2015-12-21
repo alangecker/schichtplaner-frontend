@@ -1,15 +1,16 @@
 React = require 'react'
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 Picker = require 'react-materialform/common/Picker'
 UserStore = require '../Store'
 
 
 Option = React.createClass
-
   click: (e) ->
     @props.toggle(parseInt(@props.value))
   render: ->
     <li className="" onClick={@click}><span><input type="checkbox" checked={@props.checked} value={@props.value}/><label></label>{@props.label}</span></li>
+
+
 
 module.exports = React.createClass
   mixins: [liquidFlux.mixin]
@@ -52,9 +53,8 @@ module.exports = React.createClass
 
 
   save: ->
-    console.log 'close it'
-    @props.onPickerClose()
-    console.log 'save', @state.selected
+    @props.onPickerClose() if @props.onPickerClose
+    @props.onUpdate(@state.selected) if @props.onUpdate
 
   open: ->
     @props.onPickerOpen() if @props.onPickerOpen
@@ -82,7 +82,7 @@ module.exports = React.createClass
         }
         {for id,name of @state.groups
           id = parseInt(id)
-          <Option checked={(@props.nullAreAll && @state.selected.length == 0) or @state.selected.indexOf(id) != -1} value={id} label={name} toggle={@toggle} />
+          <Option key={id} checked={(@props.nullAreAll && @state.selected.length == 0) or @state.selected.indexOf(id) != -1} value={id} label={name} toggle={@toggle} />
         }
       </ul>
       <div className="picker__footer">

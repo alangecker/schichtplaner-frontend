@@ -27,7 +27,7 @@ module.exports = React.createClass
 
   render: ->
     <div className={@props.className}>
-      <input onClick={@open} id="test" type="text" className="picker__input picker__input--active truncate"  value={@props.label} readOnly={true} tabindex="-1"/>
+      <input onClick={@open} id="test" type="text" className="picker__input picker__input--active truncate"  value={@props.label} readOnly={true} tabIndex="-1"/>
       {if @state.open
         <div className="picker picker--focused picker--opened" id="test_root" tabindex="0" aria-hidden="false">
           <div className="picker__holder" onClick={@close}>

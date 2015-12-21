@@ -1,10 +1,9 @@
-liquidFlux = require '../../liquidFlux'
+liquidFlux = require 'liquidFlux/backend'
 constants = require './constants'
 moment = require 'moment'
 
 
 module.exports = liquidFlux.createActions
-
   add: (req) ->
     payload =
       ScheduleId: req.body.scheduleId
@@ -20,6 +19,7 @@ module.exports = liquidFlux.createActions
 
     payload.start = moment(req.body.start).format() if req.body.start
     payload.end = moment(req.body.end).format() if req.body.end
+    payload.groups = req.body.groups if req.body.groups
 
     @dispatch(constants.UPDATE, payload)
     req.success()

@@ -24,7 +24,8 @@ module.exports = (db, sequelize) ->
   db.User.hasOne(db.UserEventSettings, {foreignKey:'UserId'})
   db.UserEventSettings.belongsTo(db.Schedule, {as: 'MainPosition', foreignKey:'MainScheduleId'})
   db.UserEventSettings.belongsToMany(db.User, {through:sequelize.define('FavoritePartner'), as: 'FavoritePartner'})
-
+  # db.UserEventSettings.hasMany(db.Schedule, {as:'FavoritePosition', foreignKey:'PollId'})
+  
   # Notifications
   db.User.hasMany(db.Notification, {foreignKey:'UserId'})
 

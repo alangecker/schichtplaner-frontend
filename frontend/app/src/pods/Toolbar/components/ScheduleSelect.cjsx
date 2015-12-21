@@ -1,6 +1,6 @@
 React = require 'react'
 ScheduleStore = require 'pods/schedule/Store'
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 DropDown = require 'react-materialform/common/DropDown'
 
 

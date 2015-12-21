@@ -1,6 +1,7 @@
 React = require 'react'
 moment = require 'moment'
 
+ShiftActions = require '../../shift/Actions'
 GroupPicker = require 'pods/user/components/GroupPicker'
 
 module.exports = React.createClass
@@ -15,7 +16,7 @@ module.exports = React.createClass
       start = moment(@props.gridStart).add(top/@props.hourHeight*60, 'm')
     else
       start = moment(@props.start)
-      
+
     end = moment(start).add(height/@props.hourHeight*60, 'm')
     return if start.isSame(@props.start) && end.isSame(@props.end)
     @props.onUpdate @props.id, start.format(), end.format()
@@ -25,8 +26,10 @@ module.exports = React.createClass
     e.stopPropagation()
     @props.onDelete @props.id
 
+  updateGroups: (groupIds) ->
+    ShiftActions.updateGroups(@props.id, groupIds)
+
   onPickerOpen: ->
-    console.log 'picker open'
     $(@refs.event).addClass('picker-open')
 
   onPickerClose: ->
@@ -42,7 +45,7 @@ module.exports = React.createClass
       </div>
       <GroupPicker
         multiple={true}
-        selected={[1,2,3]}
+        selected={group.id for group in @props.AllowedGroups}
         nullAreAll={true}
         allLabel="Für "
         prefix="nur für "
@@ -50,9 +53,9 @@ module.exports = React.createClass
         description="Schicht nur für folgende Gruppen möglich"
         onPickerOpen={@onPickerOpen}
         onPickerClose={@onPickerClose}
+        onUpdate={@updateGroups}
         />
     </div>
-
 
 
   getMinimumTop: ->

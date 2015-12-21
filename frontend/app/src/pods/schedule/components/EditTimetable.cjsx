@@ -1,6 +1,7 @@
 React = require 'react'
 moment = require 'moment'
-liquidFlux = require 'liquidFlux'
+
+liquidFlux = require 'liquidFlux/frontend'
 ShiftStore = require '../../shift/Store'
 ShiftActions = require '../../shift/Actions'
 
@@ -17,7 +18,6 @@ module.exports = React.createClass
   displayName: 'EditTimeline'
 
   getFluxStates: (props) ->
-    console.info 'lade'
     shifts: ShiftStore.getShiftsByScheduleId(props.scheduleId)
 
   setStoreListener: -> [
@@ -42,11 +42,11 @@ module.exports = React.createClass
         <Timetable start={@props.start} end={@props.end} onHourClick={@addShift}>
           {for shift in @state.shifts
             if shift.UserId or now.isAfter(shift.start)
-              <Shift {...shift} className="disabled">
+              <Shift {...shift} key={shift.id} className="disabled">
 
               </Shift>
             else
-              <ShiftEditable {...shift} onUpdate={@updateShift}  onDelete={@deleteShift} minValue={now} />
+              <ShiftEditable {...shift} key={shift.id} onUpdate={@updateShift}  onDelete={@deleteShift} minValue={now} />
 
           }
         </Timetable>

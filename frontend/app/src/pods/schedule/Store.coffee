@@ -1,4 +1,4 @@
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 Queries = require './Queries'
 constants = require './constants'
 

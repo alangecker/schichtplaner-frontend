@@ -2,21 +2,20 @@ contentGenerator = require './content'
 ScheduleStore = require './Store'
 Actions = require './Actions'
 ScheduleMiddleware = require './middleware'
-
+liquidFlux = require 'liquidFlux/backend'
 
 module.exports = [
-
-    {
+    new liquidFlux.Route
       type: 'GET'
       route: '/schedules'
       listener: [
           [ScheduleStore, 'CHANGE']
       ]
       content: contentGenerator.list
-    },
+      cacheable: true
 
-    {
-      # create new schedule
+    # create new schedule
+    new liquidFlux.Route
       type: 'POST'
       route: '/schedules'
       middleware:[
@@ -24,10 +23,10 @@ module.exports = [
         ScheduleMiddleware.createScheduleValidation
       ]
       action: Actions.create
-    },
 
-    {
-      # update schedule-infos
+
+    # update schedule-infos
+    new liquidFlux.Route
       type: 'POST'
       route: '/schedule/:scheduleId'
       middleware:[
@@ -35,9 +34,9 @@ module.exports = [
         ScheduleMiddleware.updateScheduleValidation
       ]
       action: Actions.update
-    },
 
-    
+
+
     #
     #
     # {

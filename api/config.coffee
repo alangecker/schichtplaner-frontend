@@ -9,6 +9,7 @@ config =
       username: 'postgres'
       password: 'password'
       logging: false
+    redis: 'redis://localhost:6379'
 
 
 module.exports = config[process.env.NODE_ENV || "development"]

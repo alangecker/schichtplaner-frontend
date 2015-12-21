@@ -1,5 +1,5 @@
 React = require 'react'
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 ScheduleStore = require '../Store'
 ScheduleActions = require '../Actions'
 

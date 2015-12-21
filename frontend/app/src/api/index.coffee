@@ -1,6 +1,6 @@
 config = require('config')
 
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 
 
 module.exports =

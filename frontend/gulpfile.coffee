@@ -33,6 +33,9 @@ js = (watch) ->
       root: path.resolve(config.js.rootPath),
       extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx", ".coffee", ".cjsx"]
       modulesDirectories: [components_path, modules_path]
+    externals:
+      "moment": "moment",
+      # "react": "React"
     module:
       loaders: [
         {

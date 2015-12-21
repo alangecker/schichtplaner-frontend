@@ -1,4 +1,4 @@
-liquidFlux = require 'liquidFlux'
+liquidFlux = require 'liquidFlux/frontend'
 constants = require './constants'
 
 module.exports = liquidFlux.createActions

@@ -1,8 +1,9 @@
 React = require 'react'
+moment = require 'moment'
 HourGrid = require './HourGrid'
 ClockLine = require './ClockLine'
 Events = require './Events'
-moment = require 'moment'
+
 
 
 

@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require('react-router').Router
 Route = require('react-router').Route
-Dispatcher = require 'liquidFlux/Dispatcher'
+liquidFlux = require 'liquidFlux/frontend'
 history = require './history'
 App = require './App'
 
@@ -30,7 +30,7 @@ requireAuth = (nextState, replaceState) ->
 requireModerator = (nextState, replaceState) ->
 
 
-Dispatcher.register 'lF.ROUTE', (route) ->
+liquidFlux.Dispatcher.register 'lF.ROUTE', (route) ->
   document.location.hash = route
 
 module.exports =

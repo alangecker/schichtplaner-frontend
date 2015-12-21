@@ -1,6 +1,7 @@
-liquidFlux = require '../../liquidFlux'
+liquidFlux = require 'liquidFlux/backend'
 models = require '../../models'
 constants = require './constants'
+
 
 module.exports = liquidFlux.createStore
   pod: 'schedule'
@@ -16,6 +17,7 @@ module.exports = liquidFlux.createStore
 
   get:
     list: ->
+
       models.Schedule.findAll(
         order:'id ASC',
         include:{model: models.Event})

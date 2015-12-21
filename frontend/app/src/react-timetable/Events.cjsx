@@ -1,5 +1,6 @@
 React = require 'react'
 moment = require 'moment'
+
 eventInRange = (event, range) ->
   return true if (event.start.isAfter(range.start) or event.start is range.start) && event.start.isBefore(range.end)
   return true if event.end.isAfter(range.start) && (event.end.isBefore(range.end) or event.end.isSame(range.end))
@@ -69,15 +70,15 @@ module.exports = React.createClass
 
     <div className="events col s10 m11 offset-s2 offset-m1">
       <div className="row">
-        {for column in events
-          <div className="col" style={{width:columnWidth+'%'}}>
-              {for event in column
+        {for column,c in events
+          <div key={c} className="col" style={{width:columnWidth+'%'}}>
+              {for event,i in column
                 style =
                   top: (event.start.diff(@props.start, 'm'))/60*@props.hourHeight + 'px'
                   height: (event.end.diff(event.start, 'm'))/60*@props.hourHeight + 'px'
                   width: columnWidth+'%'
 
-                <div className={"event-container d#{event.end.diff(event.start, 'h')}h"} style={style}>{event.component}</div>
+                <div key={i} className={"event-container d#{event.end.diff(event.start, 'h')}h"} style={style}>{event.component}</div>
               }
               <div>&nbsp;</div>
           </div>

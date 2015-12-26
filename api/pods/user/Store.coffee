@@ -10,7 +10,40 @@ module.exports = liquidFlux.createStore
     # @bindAction constants.DELETE, @doDeleteShift
     #
 
-
   get:
     groups:  ->
       models.Group.findAll().catch(models.error)
+
+    userWithEvent: (userId, eventId) ->
+
+      models.User.findOne({
+        where:
+          id: userId
+        include: [
+          models.Group
+          {
+            model: models.Shift
+            include: [
+              {
+                model: models.Schedule
+                where: {EventId:eventId}
+              }
+            ]
+          },
+          {
+            model: models.UserEventSettings
+            where: {EventId:eventId}
+            include: [
+              {
+                model: models.Schedule
+                as: 'MainPosition'
+              },
+              {
+                model: models.User
+                as: 'FavoritePartner'
+              },
+              # TODO: add favorite Positions/Schedules
+            ]
+          }
+        ]
+      }).catch(models.error)

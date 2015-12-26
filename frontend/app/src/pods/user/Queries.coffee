@@ -11,3 +11,11 @@ module.exports = liquidFlux.createQueries
       @dispatch constants.GROUPS_RECIEVE, res
     onUpdate: (res) ->
       @dispatch constants.GROUPS_UPDATE, res
+
+  getEventUserExtended:
+    do: (id, eventId) ->
+      api.get("/user/#{id}/event/#{eventId}/extended", @update).then(@success, @error)
+    onSuccess: (res) ->
+      @dispatch constants.USER_RECIEVE, res
+    onUpdate: (res) ->
+      @dispatch constants.USER_UPDATE, res

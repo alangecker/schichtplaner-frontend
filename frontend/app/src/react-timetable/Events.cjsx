@@ -21,22 +21,12 @@ module.exports = React.createClass
   getEvents: ->
     return [] unless @props.children
     events = []
+    eventsColumn = []
 
-    # # sort by start and duration
-    # childs.sort (a,b) ->
-    #   aStart = a.props.start.unix()
-    #   bStart = b.props.start.unix()
-    #   aEnd = a.props.end.unix()
-    #   bEnd = b.props.end.unix()
-    #
-    #   diff =  aStart - bStart
-    #   return diff if diff != 0
-    #   durationA = aEnd-aStart
-    #   durationB = bEnd-bStart
-    #   return durationB-durationA
+
 
     for child in @props.children
-      curEvent =
+      events.push
         start: moment(child.props.start)
         end: moment(child.props.end)
         component: React.cloneElement(child,
@@ -44,14 +34,25 @@ module.exports = React.createClass
           gridStart: @props.start
           gridEnd: @props.end
         )
+    # sort by start and duration
+    events.sort (a,b) ->
+      aStart = a.start.unix()
+      bStart = b.start.unix()
+      aEnd = a.end.unix()
+      bEnd = b.end.unix()
 
-
+      diff =  aStart - bStart
+      return diff if diff != 0
+      durationA = aEnd-aStart
+      durationB = bEnd-bStart
+      return durationB-durationA
+    for curEvent in events
       curColumn = 0
       loop
-        events[curColumn] = [] unless events[curColumn]
+        eventsColumn[curColumn] = [] unless eventsColumn[curColumn]
         collision = false
 
-        for event in events[curColumn]
+        for event in eventsColumn[curColumn]
           if eventInRange(curEvent, event)
             collision = true
             break
@@ -59,9 +60,11 @@ module.exports = React.createClass
         if collision
           curColumn++
         else
-          events[curColumn].push curEvent
+          eventsColumn[curColumn].push curEvent
           break
-    return events
+
+
+    return eventsColumn
 
   render: ->
 

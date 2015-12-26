@@ -25,18 +25,15 @@ module.exports = document.sstore = liquidFlux.createStore
 
     events: -> @fetch
       locally: ->
-        return if not @state.events
-        res = []
-        res.push(e) for event,e of @state.events
-        return res
+        return @state.events
       remotely: ->
         Queries.getList()
-      default: {}
+      default: []
 
-    schedulesByGroups: (event) -> @fetch
+    schedules: (event) -> @fetch
       locally: ->
         return if not @state.events or not @state.events[event]
-        @state.events[event].groups
+        @state.events[event].scheduleList
       remotely: ->
         Queries.getList()
       default: {}
@@ -49,6 +46,19 @@ module.exports = document.sstore = liquidFlux.createStore
         Queries.getList()
       default: 0
 
+    activeEvent: (title) -> @fetch
+      locally: ->
+        return if not @state.events
+        if @state.events[title]
+          return title
+        else
+          lastEvent = ''
+          lastEvent = title for title,o of @state.events
+          return lastEvent
+      remotely: ->
+        Queries.getList()
+      default: ''
+
   do:
     create: (payload) -> Queries.createSchedule(payload)
     update: (payload) -> Queries.updateSchedule(payload)
@@ -58,20 +68,15 @@ module.exports = document.sstore = liquidFlux.createStore
       @state.schedules = {} if not @state.schedules
       @state.events = {}
 
-      for schedule in res.schedules
-        path = schedule.title.split('/')
-        path[0] = '-' if path.length == 1
+      for event in res.events
+        @state.events[event.title] = event
+        @state.events[event.title].scheduleList = []
+        # @state.schedules[event.title] = {}
+        for schedule in event.schedules
+          path = schedule.title.split('/')
+          path[0] = '-' if path.length == 1
+          schedule.group = path[0]
+          @state.schedules[schedule.id] = schedule
+          @state.events[event.title].scheduleList.push schedule
 
-        @state.schedules[schedule.id] = schedule
-
-        if not @state.events[schedule.event]
-          @state.events[schedule.event] =
-            title: schedule.event
-            id: schedule.eventId
-            groups: {}
-
-        if not @state.events[schedule.event].groups[path[0]]
-          @state.events[schedule.event].groups[path[0]] = []
-
-        @state.events[schedule.event].groups[path[0]].push @state.schedules[schedule.id]
       @emitChange()

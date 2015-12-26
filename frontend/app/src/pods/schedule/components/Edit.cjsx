@@ -18,8 +18,8 @@ module.exports = React.createClass
   mixins: [liquidFlux.mixin]
   displayName: 'ScheduleEdit'
 
-  getFluxStates: ->
-    schedule: ScheduleStore.getSchedule(@props.params.scheduleId)
+  getFluxStates: (props) ->
+    schedule: ScheduleStore.getSchedule(props.params.scheduleId)
 
   setStoreListener: -> [
       [ScheduleStore, @refreshFluxStates]
@@ -30,9 +30,9 @@ module.exports = React.createClass
     ScheduleActions.update values
 
   render: ->
-    return <div /> unless @state.schedule
+    return <div /> if not @state.schedule or not @state.schedule.id
     <div>
-        <h4 className="header">Schichtplan bearbeiten</h4>
+        <h4 className="header">Schichtplan bearbeiten <a href="#/#{@props.params.event}/#{@state.schedule.id}">zurück</a></h4>
         <Form className="row" onSubmit={@saveForm} onlyChanges={true} overlay={true}>
           <div className="col s12 m6">
             <TextField

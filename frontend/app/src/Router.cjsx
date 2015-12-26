@@ -10,6 +10,7 @@ App = require './App'
 
 ScheduleCreate = require 'pods/schedule/components/Create'
 ScheduleEdit = require 'pods/schedule/components/Edit'
+ScheduleShow = require 'pods/schedule/components/Show'
 
 
 # Calendar = require './components/Calendar'
@@ -30,7 +31,8 @@ requireAuth = (nextState, replaceState) ->
 requireModerator = (nextState, replaceState) ->
 
 
-liquidFlux.Dispatcher.register 'lF.ROUTE', (route) ->
+liquidFlux.Dispatcher.register 'ROUTE', (route) ->
+  console.log 'test'
   document.location.hash = route
 
 module.exports =
@@ -47,7 +49,7 @@ module.exports =
           <Route path="conflicts" component={Conflicts} />
         </Route>
         <Route path=":event/:scheduleId/edit" components={ScheduleEdit} onEnter={requireModerator} />
-        <Route path=":event/:scheduleId" component={Calendar} />
+        <Route path=":event/:scheduleId" component={ScheduleShow} />
         <Route path=":event" component={Welcome} />
       </Route>
   </Router>

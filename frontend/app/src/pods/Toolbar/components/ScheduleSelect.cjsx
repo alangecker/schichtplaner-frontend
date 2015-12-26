@@ -8,9 +8,9 @@ module.exports = React.createClass
   displayName: 'ScheduleSelect'
   mixins: [liquidFlux.mixin]
 
-  getFluxStates: ->
+  getFluxStates: (props)->
     events: ScheduleStore.getEvents()
-    schedules: ScheduleStore.getSchedulesByGroups(@props.event)
+    schedules: ScheduleStore.getSchedules(props.event)
 
   setStoreListener: -> [
       [ScheduleStore, @refreshFluxStates]
@@ -19,7 +19,7 @@ module.exports = React.createClass
   render: ->
     eventPlaceholder = 'Jahr'
     eventOptions = []
-    for event in @state.events
+    for t,event of @state.events
       eventOptions.push(href:'#/'+event.title, label:event.title)
       eventPlaceholder = @props.event if event.title == @props.event
 
@@ -53,9 +53,17 @@ module.exports = React.createClass
   # ------------------------------------
 
   groupsToOptions: ->
+    groups = {}
+    for id,schedule of @state.schedules
+      if groups[schedule.group]
+        groups[schedule.group].push schedule
+      else
+        groups[schedule.group] = [schedule]
+
     options = []
     placeholder = 'Schichtplan'
-    for group,schedules of @state.schedules
+
+    for group,schedules of groups
       options.push
         className: 'optgroup'
         disabled: true

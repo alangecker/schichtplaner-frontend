@@ -8,14 +8,12 @@ Validator =
 
 module.exports =
   updateShiftValidation: (req, next, error) ->
-    console.log req.body
     return error(400) unless req.body instanceof Object
 
     if req.body.groups
       return error(406, 'INVALID') if typeof req.body.groups != 'object'
       for g in req.body.groups
         return error(406, 'INVALID') if typeof g != 'number' or g < 1
-
 
     if req.body.start
       start = moment(req.body.start)
@@ -30,9 +28,13 @@ module.exports =
       # TODO: check if allowedGroups exist
 
       models.Shift.findOne(
-        where:{id:req.params.shiftId}
-        include:{model: models.Schedule})
-      .then( (el) ->
+        where:{
+          id:req.params.shiftId
+        }
+        include:{
+          model: models.Schedule
+        }
+      ).then( (el) ->
         return error(406, 'INVALID5') if not el
         return error(406, 'INVALID6') if start.isBefore(el.Schedule.start)
         return error(406, 'INVALID7') if end.isAfter(el.Schedule.end)

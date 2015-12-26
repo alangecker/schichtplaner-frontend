@@ -12,20 +12,21 @@ module.exports = (db, sequelize) ->
 
   # Shift
   db.Shift.belongsToMany(db.Group, {through:sequelize.define('ShiftAllowedGroups'),as:'AllowedGroups'})
-  db.Shift.belongsTo(db.Schedule)
+  db.Shift.belongsTo(db.Schedule, {foreignKey:'ScheduleId'})
   db.Shift.belongsTo(db.User, {foreignKey:'UserId'})
   db.User.hasMany(db.Shift, {foreignKey:'UserId'})
 
   # User
   db.User.belongsTo(db.User, {as:'Referer', foreignKey:'RefererId'})
-  UserGroups = sequelize.define('UserGroups')
+  UserGroups = sequelize.define('UserGroup')
   db.User.belongsToMany(db.Group, {through:UserGroups})
   db.Group.belongsToMany(db.User, {through:UserGroups})
-  db.User.hasOne(db.UserEventSettings, {foreignKey:'UserId'})
+  db.User.hasMany(db.UserEventSettings, {foreignKey:'UserId'})
+  db.UserEventSettings.belongsTo(db.Event, {as: 'Event', foreignKey:'EventId'})
   db.UserEventSettings.belongsTo(db.Schedule, {as: 'MainPosition', foreignKey:'MainScheduleId'})
   db.UserEventSettings.belongsToMany(db.User, {through:sequelize.define('FavoritePartner'), as: 'FavoritePartner'})
   # db.UserEventSettings.hasMany(db.Schedule, {as:'FavoritePosition', foreignKey:'PollId'})
-  
+
   # Notifications
   db.User.hasMany(db.Notification, {foreignKey:'UserId'})
 
@@ -40,3 +41,6 @@ module.exports = (db, sequelize) ->
   db.Shift.hasOne(db.Report, {foreignKey:'ReportId'})
   db.Report.belongsTo(db.Shift, {foreignKey:'ShiftId'})
   db.Report.belongsToMany(db.User, {through: Partner, as: 'Partner'})
+
+  db.TradeRequest.belongsTo(db.Shift, {foreignKey:'ShiftId'})
+  db.TradeRequest.belongsTo(db.Shift, {foreignKey:'ForShiftId'})

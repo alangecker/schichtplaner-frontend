@@ -3,15 +3,23 @@ Store = require './Store'
 
 module.exports =
   list: (params,callback) ->
-    Store.getList().then (response) ->
-
-      list = for schedule in response
-                id: schedule.id
-                eventId: schedule.EventId
-                event: schedule.Event.title
-                title: schedule.title
-                start: schedule.start
-                end: schedule.end
-                rating: schedule.rating
-                description: schedule.description
-      callback(list)
+    Store.getList().then (events) ->
+      res = []
+      for event in events
+        el =
+          id: event.id
+          title: event.title
+          start: event.start
+          end: event.end
+          schedules: []
+        for schedule in event.Schedules
+          el.schedules.push
+            id: schedule.id
+            eventId: event.id
+            title: schedule.title
+            start: schedule.start
+            end: schedule.end
+            description: schedule.description
+            rating: schedule.rating
+        res.push el
+      callback res

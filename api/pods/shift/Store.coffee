@@ -42,14 +42,14 @@ module.exports = liquidFlux.createStore
           {model: models.User}
           {model: models.Group, as: 'AllowedGroups'}
         ]
-      ).then( (shift) ->
-        console.log '----------------------------'
-        console.log (require 'moment')(payload.start).format("HH:mm U[h]r")
-        console.log '----------------------------'
+      ).then( (shift) =>
+
         shift.set(payload)
+        shift.setAllowedGroups(payload.groups) if payload.groups
+
         return shift.save()
       ).then(=>
-        @emitChange()
+        setTimeout( (=>@emitChange()), 10) # workaround, TODO: find out why Row issnt updated after promise gots resolved  
       ).catch(models.error)
 
 

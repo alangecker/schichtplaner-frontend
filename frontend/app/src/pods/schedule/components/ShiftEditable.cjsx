@@ -3,13 +3,14 @@ moment = require 'moment'
 
 ShiftActions = require '../../shift/Actions'
 GroupPicker = require 'pods/user/components/GroupPicker'
+ShiftCommentPicker = require './ShiftCommentPicker'
 
 module.exports = React.createClass
   displayName: 'ShiftEditable'
 
+  getInitialState: ->
+    newComment: null
 
-  snapY: (height) ->
-    return height-height%(@props.hourHeight/2)
 
   updated: (top, height) ->
     if(top != null)
@@ -29,6 +30,10 @@ module.exports = React.createClass
   updateGroups: (groupIds) ->
     ShiftActions.updateGroups(@props.id, groupIds)
 
+  updateComment: ->
+    @setState newComment: @refs.comment
+
+
   onPickerOpen: ->
     $(@refs.event).addClass('picker-open')
 
@@ -45,7 +50,7 @@ module.exports = React.createClass
       </div>
       <GroupPicker
         multiple={true}
-        selected={group.id for group in @props.AllowedGroups}
+        selected={@props.AllowedGroups}
         nullAreAll={true}
         allLabel="Für "
         prefix="nur für "
@@ -55,8 +60,22 @@ module.exports = React.createClass
         onPickerClose={@onPickerClose}
         onUpdate={@updateGroups}
         />
+      <div className="comment truncate">
+        {# TODO: change comment
+          if @props.comment
+            @props.comment
+        }
+      </div>
     </div>
 
+
+
+
+
+
+
+  snapY: (height) ->
+    return height-height%(@props.hourHeight/2)
 
   getMinimumTop: ->
     return 0 if not @props.minValue

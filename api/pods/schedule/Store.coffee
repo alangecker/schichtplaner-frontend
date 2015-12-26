@@ -17,11 +17,14 @@ module.exports = liquidFlux.createStore
 
   get:
     list: ->
-
-      models.Schedule.findAll(
-        order:'id ASC',
-        include:{model: models.Event})
-      .catch(models.error)
+      models.Event.findAll(
+        #  order:'start ASC',
+          include:{model: models.Schedule}
+      ).catch(models.error)
+      # models.Schedule.findAll(
+      #   order:'id ASC',
+      #   include:{model: models.Event})
+      # .catch(models.error)
 
   do:
     create: (payload) ->
@@ -35,8 +38,6 @@ module.exports = liquidFlux.createStore
       .catch(models.error)
 
     update: (payload) ->
-      console.log 'update1'
       models.Schedule.update(payload.values, where:{id:payload.id}).then (el) =>
-        console.log 'update2', el
         @emitChange()
       .catch(models.error)

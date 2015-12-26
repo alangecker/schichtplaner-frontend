@@ -9,9 +9,9 @@ module.exports = liquidFlux.createQueries
       @dispatch constants.LIST_REQUEST
       api.get("/schedules", @update).then(@success, @error)
     onSuccess: (res) ->
-      @dispatch constants.LIST_RECIEVE, schedules: res
+      @dispatch constants.LIST_RECIEVE, events: res
     onUpdate: (res) ->
-      @dispatch constants.LIST_UPDATE, schedules: res
+      @dispatch constants.LIST_UPDATE, events: res
 
 
   getSchedule:

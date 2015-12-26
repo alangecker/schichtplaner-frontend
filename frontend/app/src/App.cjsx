@@ -1,12 +1,22 @@
 React = require 'react'
-ScheduleActions = require 'pods/schedule/Actions'
+liquidFlux = require 'liquidFlux/frontend'
+ScheduleStore = require 'pods/schedule/Store'
 Toolbar = require 'pods/Toolbar/components/Toolbar'
 
 module.exports = React.createClass
   displayName: 'App'
+  mixins: [liquidFlux.mixin]
+
+  setStoreListener: -> [
+      [ScheduleStore, => @forceUpdate()]
+  ]
+
+  # TODO:
+  # setChildContext: ->
+  #   dayThreshold: 4
 
   render: ->
-    event = @props.params.event
+    event = ScheduleStore.getActiveEvent(@props.params.event )
     scheduleId = parseInt @props.params.scheduleId
     <div id="app">
       <Toolbar event={event} scheduleId={scheduleId} />

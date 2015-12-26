@@ -10,7 +10,7 @@ module.exports = React.createClass
 
 
   render: ->
-    dayThreshold = 4
+    dayThreshold = 6 # TODO: setting central
 
     threshold = @props.count == 0 || (@props.time.hour() is dayThreshold && @props.count > dayThreshold)
     <div className={"line row"+(if threshold then ' threshold' else '')}>

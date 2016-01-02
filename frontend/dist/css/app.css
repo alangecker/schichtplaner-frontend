@@ -48,7 +48,8 @@ body {
       text-align: left; }
     #toolbar .schedule-selector > div ul.dropdown-content {
       background-color: #303030;
-      border-top: 2px solid #0097A7; }
+      border-top: 2px solid #0097A7;
+      max-height: none; }
       #toolbar .schedule-selector > div ul.dropdown-content li {
         line-height: 1.2rem; }
         #toolbar .schedule-selector > div ul.dropdown-content li a {
@@ -79,6 +80,14 @@ body {
   padding-right: 20px; }
 
 blockquote small {
+  opacity: 0.5; }
+
+.step-summary img {
+  width: 100%;
+  max-width: 150px;
+  border: 1px solid #AAA; }
+
+.step-summary small {
   opacity: 0.5; }
 
 .event {
@@ -371,7 +380,8 @@ blockquote small {
     cursor: default; }
 
 .dropdown-content {
-  background-color: #303030; }
+  background-color: #303030;
+  max-height: 300px; }
   .dropdown-content li > a, .dropdown-content li > span {
     color: #fff; }
   .dropdown-content li:hover, .dropdown-content li.active {
@@ -385,6 +395,15 @@ blockquote small {
       margin: 0;
       padding: 0 20px;
       width: 100%; }
+
+.range-slider .noUi-handle {
+  cursor: move; }
+
+.range-slider .current {
+  margin: 10px;
+  font-size: 0.9em; }
+  .range-slider .current small {
+    opacity: 0.5; }
 
 .picker__box .closeButton {
   position: absolute;
@@ -415,3 +434,6 @@ ul.tabs {
     color: rgba(249, 201, 203, 0.17); }
   ul.tabs li > a.active {
     color: #f9c9cb; }
+
+.select-wrapper span.caret {
+  color: #B1B1B1; }

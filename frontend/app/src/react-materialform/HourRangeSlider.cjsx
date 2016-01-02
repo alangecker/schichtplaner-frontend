@@ -7,8 +7,7 @@ module.exports = React.createClass
   displayName: 'HourRangeSlider'
 
   onChange: ->
-    # @update @refs.input.value
-
+    @update @refs.input.value
 
   startLeftDrag: (e) ->
     @startDrag 'left', e
@@ -31,7 +30,7 @@ module.exports = React.createClass
     active = if target == 'left' then left else right
 
     # add active-classes
-    active.addClass('noUi-active')
+    $('.noUi-handle', active).addClass('noUi-active')
     wrapper.addClass('noUi-state-drag')
 
 
@@ -42,53 +41,68 @@ module.exports = React.createClass
       hours = Math.round(position/width*range)
 
       if target == 'left'
-        if position <= width && hours > 0
-          cur = moment(start).add(hours, 'h')
-          curEnd = @getValue().end
-          if moment(cur).add(@props.min, 'h').isBefore(curEnd)
+        cur = moment(start).add(hours, 'h')
+        curEnd = @getValue().end
+        if position <= width && hours >= 0
+          if moment(cur).add(@props.min-1, 'h').isBefore(curEnd)
             @update
               start: cur.format()
               end: curEnd
+          else
+            ;#TODO: set to max possible
+        else
+          @update
+            start: @props.start
+            end: curEnd
+
       else
-        if position <= width && hours > 0
-          cur = moment(start).add(hours, 'h')
-          curStart = @getValue().start
-          if moment(cur).subtract(@props.min, 'h').isAfter(curStart)
+        cur = moment(start).add(hours, 'h')
+        curStart = @getValue().start
+        if position <= width && hours >= 0
+          if moment(cur).subtract(@props.min-1, 'h').isAfter(curStart)
             @update
               start: curStart
               end: cur.format()
-        ;
-      # active.css('left', (position/width*100)+'%')
-
-
+          else
+            ;#TODO: set to max possible
+        else
+          @update
+            start: curStart
+            end: @props.end
 
     body.on 'mousemove', moving
 
     body.on 'mouseup', ->
-      active.removeClass('noUi-active')
+      $('.noUi-handle', active).removeClass('noUi-active')
       wrapper.removeClass('noUi-state-drag')
       body.off 'mousemove', moving
 
 
   render: ->
-    start = moment(@props.start)
-    range = moment(@props.end).diff(start, 'h')
-    left = moment(@getValue().start).diff(start, 'h')/range
-    right = moment(@getValue().end).diff(start, 'h')/range
-    <div className="input-field">
+    rangeStart = moment(@props.start)
+    range = moment(@props.end).diff(rangeStart, 'h')
+
+    start = moment(@getValue().start)
+    end = moment(@getValue().end)
+
+    left = start.diff(rangeStart, 'h')/range
+    right = end.diff(rangeStart, 'h')/range
+    <div className="input-field range-slider">
       <div ref="wrapper" className="noUi-target noUi-ltr noUi-horizontal noUi-background">
         <div className="noUi-base">
           <div ref="left" className="noUi-origin noUi-connect" style={{left: (left*100)+'%'}}>
             <div onMouseDown={@startLeftDrag} className="noUi-handle noUi-handle-lower">
-              <div className="range-label"><span>8</span></div>
             </div>
           </div>
           <div ref="right" className="noUi-origin noUi-background" style={{left: (right*100)+'%'}}>
             <div onMouseDown={@startRightDrag} className="noUi-handle noUi-handle-upper">
-              <div className="range-label"><span>80</span></div>
             </div>
           </div>
         </div>
+      </div>
+      <div className="current">
+        <div style={{float:'right'}}><small>Bis:</small> {end.format(@props.format)}</div>
+        <div><small>Von:</small> {start.format(@props.format)}</div>
       </div>
       <label htmlFor={"reactform-#{@props.name}"} data-error={@state.errorText} className="active">{@props.label}</label>
     </div>

@@ -30,6 +30,13 @@ module.exports = document.sstore = liquidFlux.createStore
         Queries.getList()
       default: []
 
+    event: (event) -> @fetch
+      locally: ->
+        return @state.events[event] if @state.events
+      remotely: ->
+        Queries.getList()
+      default: {}
+
     schedules: (event) -> @fetch
       locally: ->
         return if not @state.events or not @state.events[event]
@@ -49,7 +56,7 @@ module.exports = document.sstore = liquidFlux.createStore
     activeEvent: (title) -> @fetch
       locally: ->
         return if not @state.events
-        if @state.events[title]
+        if @state.events[title] # TODO: unnecessary
           return title
         else
           lastEvent = ''

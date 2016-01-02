@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) ->
     MainScheduleId: DataTypes.INTEGER
     setupScore: DataTypes.INTEGER
     deconstructionScore: DataTypes.INTEGER
+    # load: DataTypes.INTEGER
+    # maxLoad: DataTypes.INTEGER
     # classMethods:
     #   associate: (models) ->
     #

@@ -28,7 +28,7 @@ module.exports = React.createClass
     else
       title = t[0]
 
-    <div>
+    <div className="content">
         {if true # TODO: moderator check
           <h4 className="header">
             {title}

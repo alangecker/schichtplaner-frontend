@@ -11,16 +11,18 @@ module.exports = React.createClass
     @update @refs.input.value
 
   render: ->
-    <div className="input-field">
+    <div className={"input-field "+(if @props.className then @props.className else '')}>
       <input
         placeholder=""
         id={"reactform-#{@props.name}"}
-        type="text"
+        type={if @props.type then @props.type else "text"}
         value={@getValue()}
         onChange={@onChange}
         onFocus={@touch}
         ref="input"
-        className={if @state.errorText and @isTouched() then 'invalid' else ''} />
+        className={if @state.errorText and @isTouched() then 'invalid' else ''}
+        disabled={@props.disabled}
+        />
 
       <label htmlFor={"reactform-#{@props.name}"} data-error={@state.errorText} className="active">{@props.label}</label>
     </div>

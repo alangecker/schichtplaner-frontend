@@ -17,7 +17,6 @@ module.exports = React.createClass
     @props.onOpen() if @props.onOpen
 
   onChange: ->
-    console.log 'change!'
     @setState value: @refs.comment.value
 
   render: ->

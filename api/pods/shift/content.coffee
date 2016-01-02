@@ -19,5 +19,6 @@ module.exports =
           user: if shift.User then shift.User.name else null
           AllowedGroups: groups
           comment: shift.comment
+          opened: shift.opened
         }
       callback(list)

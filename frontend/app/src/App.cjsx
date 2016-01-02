@@ -11,9 +11,11 @@ module.exports = React.createClass
       [ScheduleStore, => @forceUpdate()]
   ]
 
-  # TODO:
-  # setChildContext: ->
-  #   dayThreshold: 4
+  childContextTypes:
+    dayThreshold: React.PropTypes.number
+
+  getChildContext: ->
+    dayThreshold: 6
 
   render: ->
     event = ScheduleStore.getActiveEvent(@props.params.event )

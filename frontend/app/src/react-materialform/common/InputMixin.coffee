@@ -2,7 +2,7 @@ module.exports =
   getInitialState: ->
     errorText: false
     _touched: false
-
+    defaultErrorFor: false
 
   touch: ->
     @setState _touched: true unless @state._touched
@@ -28,11 +28,19 @@ module.exports =
     # checkValue() setted?
     if @props.checkValue
       # check!
-      error = @props.checkValue(value, formValues)
-
+      if typeof @props.checkValue == 'object'
+        for checker in @props.checkValue
+          error = checker(value, formValues)
+          break if error
+      else
+        error = @props.checkValue(value, formValues)
       # error changed?
-      if @state.errorText != error
-        @setState errorText: error
-        @props._form_handlers.setError(@props.name, error) # call parent <Form />
+
+    if @props.errorText && @props.errorFor == value
+      error = @props.errorText
+
+    if @state.errorText != error
+      @setState errorText: error
+      @props._form_handlers.setError(@props.name, error) # call parent <Form />
 
   getValue: -> @props._form_values[@props.name] if @props._form_values

@@ -5,21 +5,17 @@ InputMixin = require './common/InputMixin'
 DropDown = require './common/DropDown.cjsx'
 
 
-hours = []
-for i in [0...24]
-  hours.push
-    value: i
-    label: (if i < 10 then ' '+i else i)+':00 Uhr'
-
 
 module.exports = React.createClass
   mixins: [InputMixin]
-  displayName: 'Hour'
+  displayName: 'Date'
 
   element: null
   componentDidMount: ->
-      document.picker = $(@refs.date).pickadate
+      $(@refs.date).pickadate
         selectMonths: true
+        #selectYears: true
+        selectYears: 70
         closeOnSelect: true
         onSet: @changeDate
 
@@ -34,7 +30,8 @@ module.exports = React.createClass
         firstDay: 1,
         format: 'dddd, dd. mmmm yyyy',
 
-
+        min: if @props.min then moment(@props.min).toDate()
+        max: if @props.max then moment(@props.max).toDate()
 
   componentDidUpdate: ->
     @componentDidMount()
@@ -46,19 +43,10 @@ module.exports = React.createClass
     newDay.hour(old.hour()) if old.isValid()
     @update newDay.format()
 
-  changeHour: (hour) ->
-    date = moment @getValue()
-    date.hour(hour)
-    @update date.format()
 
-
-
-
-  getHourText: -> moment(@getValue()).format('HH:mm')
 
   render: ->
-    <div className="row">
-      <div className="col s8 m7 input-field">
+      <div className="input-field">
         <input
           id={"reactform-#{@props.name}-day"}
           type="date"
@@ -69,15 +57,4 @@ module.exports = React.createClass
           className={if @state.errorText and @isTouched() then 'invalid' else ''}
           onChange={@changeDate} />
         <label htmlFor={"reactform-#{@props.name}-day"} data-error={@state.errorText} className="active">{@props.label}</label>
-
-      </div>
-      <div className="select-wrapper input-field col s4 m5" style={{paddingRight:0}}>
-        <span className="caret">▼</span>
-        <DropDown
-          id={"reactform-#{@props.name}-hour"}
-          menu={hours}
-          onChange={@changeHour}
-          onFocus={@touch}
-          buttonText={@getHourText()} />
-      </div>
     </div>

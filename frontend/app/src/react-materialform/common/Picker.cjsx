@@ -8,7 +8,6 @@ module.exports = React.createClass
   getInitialState: ->
     open: false
 
-
   componentDidUpdate: ->
     closeButtons = $('[data-close]', @refs.box)
     closeButtons.off("click", @close)
@@ -28,12 +27,15 @@ module.exports = React.createClass
   render: ->
     <div className={@props.className}>
       <input onClick={@open} id="test" type="text" className="picker__input picker__input--active truncate"  value={@props.label} readOnly={true} tabIndex="-1"/>
-      {if @state.open
+      {if @state.open || @props.open
         <div className="picker picker--focused picker--opened" id="test_root" tabIndex="0" aria-hidden="false">
           <div className="picker__holder" onClick={@close}>
             <div className="picker__frame" onClick={@dont}>
               <div className="picker__wrap">
                 <div className="picker__box" ref="box">
+                  {if @props.showCloseButton
+                    <button data-close="true" className="closeButton"><i className="mdi mdi-close" /></button>
+                  }
                   {@props.children}
                 </div>
               </div>

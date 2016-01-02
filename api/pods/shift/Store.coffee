@@ -1,6 +1,7 @@
 liquidFlux = require 'liquidFlux/backend'
 models = require '../../models'
 constants = require './constants'
+moment = require 'moment'
 
 module.exports = liquidFlux.createStore
   pod: 'shift'
@@ -24,9 +25,45 @@ module.exports = liquidFlux.createStore
           {model: models.User}
           {model: models.Group, as: 'AllowedGroups'}
         ]
+        # TODO: order by start
       ).catch(models.error)
 
 
+    shiftPartners: (shifts, excludeUser) ->
+      conditions = []
+      response = {}
+      for shift in shifts
+        conditions.push
+          start: {$between: [shift.start, shift.end]}
+          ScheduleId: shift.ScheduleId
+        conditions.push
+          end: {$between: [shift.start, shift.end]}
+          ScheduleId: shift.ScheduleId
+        shift.startUnix = moment(shift.start).unix()
+        shift.endUnix = moment(shift.end).unix()
+        response[shift.id] = []
+
+      models.Shift.findAll({
+        where:
+          UserId: {$gt:0}
+          #UserId: {$ne:excludeUser} # TODO: uncomment
+          $or: conditions # TODO: maybe buggy
+        include: [
+          models.User
+        ]
+        # TODO: order by start
+      }).then( (partnerShifts) ->
+
+        for partnerShift in partnerShifts
+          start = moment(partnerShift.start).unix()
+          end = moment(partnerShift.end).unix()
+          for shift in shifts
+            if shift.ScheduleId == partnerShift.ScheduleId && !(start >= shift.endUnix || shift.startUnix >= end)
+              # Shift is overlapping
+              response[shift.id].push partnerShift.User.name if response[shift.id].indexOf(partnerShift.User.name) == -1
+              break
+        return response
+      ).catch(models.error)
 
   do:
     addShift: (payload) ->
@@ -49,7 +86,7 @@ module.exports = liquidFlux.createStore
 
         return shift.save()
       ).then(=>
-        setTimeout( (=>@emitChange()), 10) # workaround, TODO: find out why Row issnt updated after promise gots resolved  
+        setTimeout( (=>@emitChange()), 10) # workaround, TODO: find out why Row issnt updated after promise gots resolved
       ).catch(models.error)
 
 

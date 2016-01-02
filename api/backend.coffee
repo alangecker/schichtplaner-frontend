@@ -9,6 +9,7 @@ moment = require 'moment'
 liquidFlux.Router.add(require './pods/schedule/routes')
 liquidFlux.Router.add(require './pods/shift/routes')
 liquidFlux.Router.add(require './pods/user/routes')
+liquidFlux.Router.add(require './pods/notifications/routes')
 
 
 offset = 31449600
@@ -37,7 +38,7 @@ models.sequelize.sync().then ->
   #         UserId: partnerId
   #   )
   #
-  # 
+  #
   # for shift in shifts
   #   shift.start = moment.unix(shift.start+offset).format()
   #   shift.end = moment.unix(shift.end+offset).format()

@@ -7,7 +7,6 @@ sass = require 'gulp-sass'
 postcss = require 'gulp-postcss'
 autoprefixer = require 'autoprefixer-core'
 GLOBAL.Promise = (require 'es6-promise').Promise # to make gulp-postcss happy
-
 config = require('./config').gulp
 path = require 'path'
 components_path = "bower_components"
@@ -34,8 +33,9 @@ js = (watch) ->
       extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx", ".coffee", ".cjsx"]
       modulesDirectories: [components_path, modules_path]
     externals:
-      "moment": "moment",
-      # "react": "React"
+      "moment": "moment"
+      # "react-router": "ReactRouter"
+      # "react": 'React'
     module:
       loaders: [
         {
@@ -52,6 +52,7 @@ js = (watch) ->
           loader: "transform?coffee-reactify"
         }
       ]
+
 
   gulp.src(config.js.srcFile)
   .pipe(gwebpack(options))

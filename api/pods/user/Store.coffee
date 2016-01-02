@@ -14,8 +14,17 @@ module.exports = liquidFlux.createStore
     groups:  ->
       models.Group.findAll().catch(models.error)
 
-    userWithEvent: (userId, eventId) ->
+    users:  ->
+      models.User.findAll().catch(models.error)
 
+    userByMail: (mail) ->
+      models.User.findOne(where:{email:mail}).catch(models.error)
+
+    userByPhone: (number) ->
+      models.User.findOne(where:{mobile:number}).catch(models.error)
+
+
+    userWithEvent: (userId, eventId) ->
       models.User.findOne({
         where:
           id: userId

@@ -5,8 +5,6 @@ createHistory = require('history/lib/createHashHistory')
 liquidFlux = require 'liquidFlux/frontend'
 App = require 'pods/app'
 
-
-
 #
 ScheduleCreate = require 'pods/schedule/components/Create'
 ScheduleEdit = require 'pods/schedule/components/Edit'

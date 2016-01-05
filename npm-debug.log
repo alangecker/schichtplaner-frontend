@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'devserver' ]
+2 info using npm@2.14.12
+3 info using node@v4.2.4
+4 verbose run-script [ 'predevserver', 'devserver', 'postdevserver' ]
+5 info predevserver schichtplaner_frontend@0.0.1
+6 info devserver schichtplaner_frontend@0.0.1
+7 verbose unsafe-perm in lifecycle true
+8 info schichtplaner_frontend@0.0.1 Failed to exec devserver script
+9 verbose stack Error: schichtplaner_frontend@0.0.1 devserver: `node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors`
+9 verbose stack Exit status 1
+9 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:214:16)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at EventEmitter.emit (events.js:172:7)
+9 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at ChildProcess.emit (events.js:172:7)
+9 verbose stack     at maybeClose (internal/child_process.js:818:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+10 verbose pkgid schichtplaner_frontend@0.0.1
+11 verbose cwd /home/andi/dev/schicht/frontend
+12 error Linux 4.2.0-18-lowlatency
+13 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "devserver"
+14 error node v4.2.4
+15 error npm  v2.14.12
+16 error code ELIFECYCLE
+17 error schichtplaner_frontend@0.0.1 devserver: `node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors`
+17 error Exit status 1
+18 error Failed at the schichtplaner_frontend@0.0.1 devserver script 'node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors'.
+18 error This is most likely a problem with the schichtplaner_frontend package,
+18 error not with npm itself.
+18 error Tell the author that this fails on your system:
+18 error     node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors
+18 error You can get their info via:
+18 error     npm owner ls schichtplaner_frontend
+18 error There is likely additional logging output above.
+19 verbose exit [ 1, true ]

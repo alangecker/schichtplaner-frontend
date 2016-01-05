@@ -4,7 +4,7 @@ InputMixin = require 'react-materialform/common/InputMixin'
 DropDown = require 'react-materialform/common/DropDown.cjsx'
 SelectMultiple = require 'react-materialform/SelectMultiple.cjsx'
 
-# Select = require 'react-materialform/Select'
+Select = require 'react-materialform/Select'
 # Hour = require 'react-materialform/Hour'
 # TextArea = require 'react-materialform/TextArea'
 # SubmitButton = require 'react-materialform/SubmitButton'
@@ -41,9 +41,14 @@ module.exports = React.createClass
         searchKeys: [u.sur, u.first, u.nick]
         value: id
 
-    <SelectMultiple
-      {...@props}
-      options={options} />
+    if @props.multiple
+      <SelectMultiple
+        {...@props}
+        options={options} />
+    else
+      <Select
+        {...@props}
+        options={options} />
 
 
 

@@ -91,7 +91,8 @@ module.exports = React.createClass
             name="refererId"
             label="Dabei über"
             value={@props.refererId}
-            nullLabel={<small>Ich = Urgestein-Gratler</small>} />
+            searchable={true}
+            nullLabel="bin Gratler der ersten Stunde" />
         </div>
         <div className="col s12 m5">
           <blockquote>Wie kamst du zu uns?<br /><small>Falls du schon lange dabei bist, brauchst du es nicht mehr ausfüllen</small></blockquote>

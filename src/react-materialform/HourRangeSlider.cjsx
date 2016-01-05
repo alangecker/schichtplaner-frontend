@@ -1,6 +1,7 @@
 React = require 'react'
 InputMixin = require './common/InputMixin'
 
+require './styles/slider'
 
 module.exports = React.createClass
   mixins: [InputMixin]

@@ -27,7 +27,7 @@ module.exports = liquidFlux.createQueries
     do: (payload) ->
       api.post("/schedules", payload).then(@success, @error)
     onSuccess: (res) ->
-      @dispatch constants.ROUTE, "/#{res[0].event}/#{res[0].id}/edit"
+      @dispatch constants.ROUTE, "/#{res.event}/#{res.id}/edit"
 
   updateSchedule:
     do: (payload) ->

@@ -50,7 +50,14 @@ module.exports = liquidFlux.createQueries
       api.post("/register/smsverify/#{encodeURIComponent(phone)}").then(@success, @error)
 
   checkSMSCode:
-        do: (number,code) ->
-          api.get("/register/smsverify/#{encodeURIComponent(number)}/#{code}").then(@success, @error)
-        onSuccess: (res) ->
-          @dispatch constants.VERIFYSMS_CHECK, res
+    do: (number,code) ->
+      api.get("/register/smsverify/#{encodeURIComponent(number)}/#{code}").then(@success, @error)
+    onSuccess: (res) ->
+      @dispatch constants.VERIFYSMS_CHECK, res
+
+  register:
+    do: (payload) ->
+      api.post("/register", payload).then(@success, @error)
+    onSuccess: (res) ->
+      @dispatch constants.LOGIN_SUCCESS, res
+      @dispatch constants.ROUTE, "/"

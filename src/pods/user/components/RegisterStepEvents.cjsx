@@ -68,6 +68,7 @@ module.exports = React.createClass
             name="favoritePartners"
             label="Lieblingspartner*Innen"
             multiple={true}
+            searchable={true}
             value={if @props.favoritePartners then @props.favoritePartners else []} />
         </div>
         <div className="col s12 m5">
@@ -80,9 +81,10 @@ module.exports = React.createClass
             [] # TODO: noch unschick
           }
           <SelectMultiple
-            name="favoriteSchedule"
+            name="favoritePositions"
             label="Lieblingspositionen"
-            value={@props.favoriteSchedule || []}
+            searchable={true}
+            value={@props.favoritePositions || []}
             options={scheduleOptions} />
         </div>
         <div className="col s12 m5">

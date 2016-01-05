@@ -11,4 +11,5 @@ module.exports = liquidFlux.constants 'USER', [
   'NUMBERINUSE'
   'VERIFYSMS_SEND'
   'VERIFYSMS_CHECK'
+  'REGISTER'
 ]

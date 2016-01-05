@@ -54,7 +54,7 @@ module.exports = React.createClass
       <DropDown
         id={"reactform-#{@props.name}"}
         menu={options}
-        searchable={true}
+        searchable={@props.searchable}
         onChange={@onChange}
         onFocus={@touch}
         className={if @state.errorText and @isTouched() then 'invalid' else ''}

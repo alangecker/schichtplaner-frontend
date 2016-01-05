@@ -24,6 +24,7 @@ module.exports = React.createClass
         menu={@props.options}
         onChange={@onChange}
         onFocus={@touch}
+        searchable={@props.searchable}
         className={if @state.errorText and @isTouched() then 'invalid' else ''}
         buttonText={@getLabel()}
         activeValue={@getValue()}  />

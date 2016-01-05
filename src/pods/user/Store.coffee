@@ -2,6 +2,7 @@ liquidFlux = require 'liquidFlux/frontend'
 Queries = require './Queries'
 constants = require './constants'
 assign = require 'object-assign'
+sha256 = require 'helpers/sha256'
 
 module.exports = liquidFlux.createStore
   pod: 'User'
@@ -16,6 +17,7 @@ module.exports = liquidFlux.createStore
     @bindAction constants.NUMBERINUSE, @updateNumberInUse
     @bindAction constants.VERIFYSMS_SEND, @doSendVerifySMS
     @bindAction constants.VERIFYSMS_CHECK, @updateVerifyCode
+    @bindAction constants.REGISTER, @doRegister
 
 
   getInitialState: ->
@@ -102,3 +104,6 @@ module.exports = liquidFlux.createStore
   do:
     sendVerifySMS: (phone) ->
       Queries.sendVerifySMS(phone)
+    register: (data) ->
+      data.password = sha256.hash(data.password)
+      Queries.register(data)

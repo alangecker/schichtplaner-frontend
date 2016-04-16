@@ -13,6 +13,6 @@ module.exports = React.createClass
         <ScheduleSelect event={@props.event} scheduleId={@props.scheduleId} />
       </div>
       <div className="right">
-        right
+        <a href="#/register">Registrierung</a>
       </div>
     </div>

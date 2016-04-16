@@ -32,7 +32,7 @@ module.exports = React.createClass
         {if true # TODO: moderator check
           <h4 className="header">
             {title}
-            <a href="#/#{@props.params.event}/#{@state.schedule.id}/edit">bearbeiten</a>
+            <a href="#/#{@props.params.event}/#{@state.schedule.id}/edit"> bearbeiten</a>
           </h4>
         else
           <h4 className="header">{title}</h4>

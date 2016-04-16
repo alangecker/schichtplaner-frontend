@@ -9,9 +9,15 @@ module.exports = React.createClass
   displayName: 'UserWidgetContent'
 
   getFluxStates: (props) ->
+    console.log 'update widget'
+    return {
       user: UserStore.getEventUser(props.id, props.eventId)
+    }
   setStoreListener: -> [
-      [UserStore, @refreshFluxStates, 'CHANGED_USER', (user) -> user.id == @props.eventId]
+      [UserStore, @refreshFluxStates, 'CHANGED_USER', (user) ->
+        console.log user, user.event.id, @props.eventId
+        return user.event.id == @props.eventId
+      ]
   ]
   contextTypes:
     dayThreshold: React.PropTypes.number
@@ -31,7 +37,7 @@ module.exports = React.createClass
 
     <div>
       <img src="http://cdn0.peterkroener.de/images/peterkroener.de/profil-peter-kroener.jpg" className="profilpicture" />
-      <h4>Andi</h4>
+      <h4>{@state.user.name}</h4>
       <div className="input-field">
             <div>{@state.user.firstname+' '+@state.user.surname}</div>
             <label className="active">Voller Name</label>

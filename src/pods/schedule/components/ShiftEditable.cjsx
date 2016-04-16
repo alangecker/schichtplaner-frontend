@@ -25,6 +25,7 @@ module.exports = React.createClass
     @props.onUpdate @props.id, start.format(), end.format()
 
   remove: (e) ->
+    console.log 'delete'
     e.preventDefault()
     e.stopPropagation()
     @props.onDelete @props.id
@@ -41,12 +42,9 @@ module.exports = React.createClass
 
   onPickerClose: ->
     $(@refs.event).removeClass('picker-open')
-
+#
   render: ->
     <div className="event editable" onMouseDown={@onMouseDown} ref="event">
-      <div className="buttons">
-        <a href="#" onClick={@remove}>X</a>
-      </div>
       <div className="time">
         {moment(@props.start).format('HH:mm')+' - '+moment(@props.end).format('HH:mm')}
       </div>
@@ -67,6 +65,9 @@ module.exports = React.createClass
           if @props.comment
             @props.comment
         }
+      </div>
+      <div className="buttons">
+        <a href="#" onClick={@remove}>X</a>
       </div>
     </div>
 

@@ -10,9 +10,11 @@ ScheduleCreate = require 'pods/schedule/components/Create'
 ScheduleEdit = require 'pods/schedule/components/Edit'
 ScheduleShow = require 'pods/schedule/components/Show'
 Register = require 'pods/user/components/Register'
+Moderator = require 'pods/moderation/components/Index'
+ModeratorUser = require 'pods/moderation/components/user/List'
 
 
-Welcome = Conflicts = MyShifts = Settings = Moderator = ModeratorUser = ModeratorShift = ModeratorSchedule = Schedule = React.createClass
+Welcome = Conflicts = MyShifts = Settings = ModeratorShift = ModeratorSchedule = Schedule = React.createClass
   render: -> <div>{@props.children}</div>
 
 Calendar = APITester = Register
@@ -33,7 +35,7 @@ module.exports =
         <Route name="settings" path="settings" component={Settings} onEnter={requireAuth} />
         <Route name="my" path=":event/my" component={MyShifts} onEnter={requireAuth} />
         <Route name="new" path=":event/new" component={ScheduleCreate} onEnter={requireModerator} />
-        <Route name="moderator" path=":event/moderator" component={Moderator} onEnter={requireModerator} >
+        <Route name="moderation" path=":event/moderation" component={Moderator} onEnter={requireModerator} >
           <Route path="user" components={ModeratorUser} />
           <Route path="shifts" components={ModeratorShift} />
           <Route path="conflicts" component={Conflicts} />

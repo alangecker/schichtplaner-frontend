@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "coffee-script": "^1.10.0",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "fixed-data-table": "^0.6.0"
   },
   "devDependencies": {
     "cjsx-loader": "^2.1.0",

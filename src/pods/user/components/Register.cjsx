@@ -32,8 +32,8 @@ module.exports = React.createClass
       "mobile":"0123456789",
       "code":"12345",
       "present":{"start":"2016-07-29T20:00:00+02:00","end":"2016-07-31T10:00:00+02:00"},
-      "favoritePartners":["2"],
-      "favoritePositions":[12]
+      "favoritePartners":[],
+      "favoritePositions":[]
     }
 
   getFluxState: (props)->

@@ -3,3 +3,4 @@ node_modules
 .tmp
 todo
 __old
+npm-debug.log

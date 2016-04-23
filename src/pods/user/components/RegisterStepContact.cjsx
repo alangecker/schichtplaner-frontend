@@ -15,10 +15,10 @@ module.exports = React.createClass
 
   getInitialState: ->
     mobile: null
-    inVerification: false
+    # inVerification: false
   setStoreListener: -> [
       [UserStore, (=>@forceUpdate()), 'NUMBERINUSE']
-      [UserStore, (=>@forceUpdate()), 'SMSVERIFY']
+      # [UserStore, (=>@forceUpdate()), 'SMSVERIFY']
   ]
   verify: (values) ->
     UserActions.sendVerifySMS(values.mobile)
@@ -32,52 +32,13 @@ module.exports = React.createClass
   submit: (values) ->
     @props.submit @props.step, values
 
+  submitWithOutVerify: (values) ->
+      @setState
+        mobile: values.mobile
+      @props.submit @props.step, values
+
   render: ->
-    if @state.inVerification
-      <Form className="content" onSubmit={@submit}>
-        <div className="row">
-          <div className="col s12 m4 offset-m2">
-            <TextField
-              name="mobile"
-              label="Handynummer"
-              value={@state.mobile}
-              disabled={true} />
-          </div>
-          <div className="col s12 m5">
-            <blockquote>
-              Damit wir dich auch erreichen können<br/>
-              <small>Wärend dem Event kriegste auch die ein oder andere Benachrichtigung</small>
-            </blockquote>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s12 m4 offset-m2">
-            <TextField
-              name="code"
-              label="Bestätigungscode"
-              value={@state.code}
-              checkValue={[checks.required,checks.verifyCode]} />
-          </div>
-          <div className="col s12 m5">
-            <blockquote>
-              Du erhältst gleich einen Code per SMS, gib den dann hier ein
-              <br /><b>ZUM TESTEN IMMER 12345</b>
-            </blockquote>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s6 right-align">
-            <button className="waves-effect waves-light btn orange" onClick={@restart}>
-              <i className="mdi mdi-arrow-left"></i>
-            </button>
-            <SubmitButton>
-              <i className="mdi mdi-send right"></i>Weiter
-            </SubmitButton>
-          </div>
-        </div>
-      </Form>
-    else
-      <Form className="content" onSubmit={@verify}>
+      <Form className="content" onSubmit={@submitWithOutVerify}>
         <div className="row">
           <div className="col s12 m4 offset-m2">
             <TextField
@@ -96,9 +57,78 @@ module.exports = React.createClass
         <div className="row">
           <div className="col s6 right-align">
             <SubmitButton>
-              <i className="mdi mdi-send right"></i>Bestätigen
+              <i className="mdi mdi-send right"></i>Weiter
             </SubmitButton>
-            <TextField name="code" className="hide"/>
           </div>
         </div>
       </Form>
+
+    # if @state.inVerification
+    #   <Form className="content" onSubmit={@submit}>
+    #     <div className="row">
+    #       <div className="col s12 m4 offset-m2">
+    #         <TextField
+    #           name="mobile"
+    #           label="Handynummer"
+    #           value={@state.mobile}
+    #           disabled={true} />
+    #       </div>
+    #       <div className="col s12 m5">
+    #         <blockquote>
+    #           Damit wir dich auch erreichen können<br/>
+    #           <small>Wärend dem Event kriegste auch die ein oder andere Benachrichtigung</small>
+    #         </blockquote>
+    #       </div>
+    #     </div>
+    #     <div className="row">
+    #       <div className="col s12 m4 offset-m2">
+    #         <TextField
+    #           name="code"
+    #           label="Bestätigungscode"
+    #           value={@state.code}
+    #           checkValue={[checks.required,checks.verifyCode]} />
+    #       </div>
+    #       <div className="col s12 m5">
+    #         <blockquote>
+    #           Du erhältst gleich einen Code per SMS, gib den dann hier ein
+    #           <br /><b>ZUM TESTEN IMMER 12345</b>
+    #         </blockquote>
+    #       </div>
+    #     </div>
+    #     <div className="row">
+    #       <div className="col s6 right-align">
+    #         <button className="waves-effect waves-light btn orange" onClick={@restart}>
+    #           <i className="mdi mdi-arrow-left"></i>
+    #         </button>
+    #         <SubmitButton>
+    #           <i className="mdi mdi-send right"></i>Weiter
+    #         </SubmitButton>
+    #       </div>
+    #     </div>
+    #   </Form>
+    # else
+    #   <Form className="content" onSubmit={@verify}>
+    #     <div className="row">
+    #       <div className="col s12 m4 offset-m2">
+    #         <TextField
+    #           name="mobile"
+    #           label="Handynummer"
+    #           value={@props.mobile}
+    #           checkValue={[checks.required,checks.mobile]} />
+    #       </div>
+    #       <div className="col s12 m5">
+    #         <blockquote>
+    #           Damit wir dich erreichen können<br/>
+    #           <small>Wärend dem Event kriegste auch die ein oder andere Benachrichtigung</small>
+    #         </blockquote>
+    #       </div>
+    #     </div>
+    #     <div className="row">
+    #       <div className="col s6 right-align">
+    #         <SubmitButton>
+    #           <i className="mdi mdi-send right"></i>Bestätigen
+    #         </SubmitButton>
+    #         <TextField name="code" className="hide"/>
+    #       </div>
+    #     </div>
+    #   </Form>

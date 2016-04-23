@@ -512,3 +512,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   position: absolute;
   top: 0;
 }
+
+.fixedDataTableLayout_horizontalScrollbar.public_fixedDataTable_horizontalScrollbar {
+  position: fixed;
+}

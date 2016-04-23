@@ -10,6 +10,7 @@ stepComponents = [
   require './RegisterStepContact'
   require './RegisterStepEvents'
   require './RegisterStepSummary'
+  require './RegisterStepDone'
 ]
 
 
@@ -31,7 +32,6 @@ module.exports = React.createClass
       "password2":"test12345",
       "mobile":"0123456789",
       "code":"12345",
-      "present":{"start":"2016-07-29T20:00:00+02:00","end":"2016-07-31T10:00:00+02:00"},
       "favoritePartners":[],
       "favoritePositions":[]
     }
@@ -65,6 +65,7 @@ module.exports = React.createClass
 
     currentStep = parseInt(@props.params.step)
     currentStep = 1 if currentStep > @state.maxStep || currentStep < 1 || !currentStep
+    currentStep = 6 if @state.maxStep == 6
     steps = [
       'Über dich'
       'Account'
@@ -78,18 +79,20 @@ module.exports = React.createClass
       <h4 className="header content">
         Registrierung
       </h4>
-      <ul className="tabs content" ref="tabs">
-         {for step,i in steps
-            if i < @state.maxStep
-              <li key={i} className="tab col s3" style={{width:(100/steps.length)+'%'}}>
-                <a href={"#/register/#{i+1}"} className={if i+1 == currentStep then 'active'}>{step}</a>
-              </li>
-            else
-              <li key={i} className="tab col s3 disabled" style={{width:(100/steps.length)+'%'}}>
-                <a>{step}</a>
-              </li>
-         }
-      </ul>
+      {if @state.maxStep < 6
+        <ul className="tabs content" ref="tabs">
+           {for step,i in steps
+              if i < @state.maxStep
+                <li key={i} className="tab col s3" style={{width:(100/steps.length)+'%'}}>
+                  <a href={"#/register/#{i+1}"} className={if i+1 == currentStep then 'active'}>{step}</a>
+                </li>
+              else
+                <li key={i} className="tab col s3 disabled" style={{width:(100/steps.length)+'%'}}>
+                  <a>{step}</a>
+                </li>
+           }
+        </ul>
+      }
       <Component event={activeEvent} {...@state.values} submit={@continue} step={currentStep} />
 
     </div>

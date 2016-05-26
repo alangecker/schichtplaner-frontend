@@ -10,6 +10,7 @@ ScheduleCreate = require 'pods/schedule/components/Create'
 ScheduleEdit = require 'pods/schedule/components/Edit'
 ScheduleShow = require 'pods/schedule/components/Show'
 Register = require 'pods/user/components/Register'
+Login = require 'pods/user/components/Login'
 Moderator = require 'pods/moderation/components/Index'
 ModeratorUser = require 'pods/moderation/components/user/List'
 
@@ -31,6 +32,7 @@ module.exports =
       <Route name="app" path="/" component={App}>
         <Route path="tester" component={APITester} />
         <Route name="register" path="register" components={Register} />
+        <Route name="login" path="login" components={Login} />
         <Route name="register" path="register/:step" components={Register} />
         <Route name="settings" path="settings" component={Settings} onEnter={requireAuth} />
         <Route name="my" path=":event/my" component={MyShifts} onEnter={requireAuth} />

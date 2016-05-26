@@ -12,7 +12,7 @@ MenuEntry = React.createClass
       classNames.push 'active selected' if @props.active
       classNames.push @props.className if @props.className
 
-      <li className={classNames.join(' ')}>
+      <li onClick={@props.onClick} className={if classNames.length then classNames.join(' ')}>
         {if @props.disabled
           <span>{@props.children}</span>
         else
@@ -64,9 +64,10 @@ module.exports = React.createClass
           for key in o.searchKeys
             return true if key.toLowerCase().indexOf(searching) == 0
         return false
+        # <input type="text" className="select-dropdown" tabIndex="-1" readOnly="true" value={@props.buttonText} data-activates={@props.id} ref="button" onClick={@focus} />
 
     <div className={if @props.className then @props.className} style={@props.style}>
-      <input type="text" className="select-dropdown" tabIndex="-1" readOnly="true" value={@props.buttonText} data-activates={@props.id} ref="button" onClick={@focus} />
+      <button type="text" className="select-dropdown" tabIndex="-1" readOnly="true" data-activates={@props.id} ref="button" onClick={@focus}>{@props.buttonText}</button>
       <ul id={@props.id} className="dropdown-content select-dropdown">
         {if @props.searchable
           <li className="search">

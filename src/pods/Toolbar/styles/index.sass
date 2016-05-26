@@ -9,7 +9,7 @@
   padding-left: 1%
   border-bottom: 1px solid #444
 
-  
+
 svg.logo
   float: left
   fill: white
@@ -31,14 +31,15 @@ svg.logo
       right: 5px
       top: 8px
       opacity: 0.3
-    input
+    button
       background: none
       border: 0
       border-bottom: 2px solid #aaa
-      height: 36px
+      height: 38px
       padding: 0
       padding-left: 15px
       text-align: left
+      width: 100%
 
 
 
@@ -52,11 +53,12 @@ svg.logo
 
       li
         line-height: 1.2rem
+        min-height: 10px
         a
           color: #fff
           padding: 5px 20px 5px 20px
           font-size: 15px
-
+          line-height: 16px
         &:hover
           background-color: rgba(0, 0, 0, 0.04)
 
@@ -66,6 +68,7 @@ svg.logo
         font-size: 0.8em
 
       li.optgroup
+        border: none
         & > span
           color: white
           opacity: 0.3
@@ -76,3 +79,24 @@ svg.logo
 
         li a
           padding: 5px 15px 5px  25px
+
+#toolbar a.button
+  display: block
+  border-bottom: 2px solid #aaa
+  height: 38px
+  padding-left: 15px
+  color: #fff
+  padding: 8px 15px
+  float: left
+  transition : border 500ms ease-out
+
+  &:hover
+    border-color: #0097A7
+
+  &::before
+    content: '▼'
+    position: absolute
+    right: 5px
+    top: 8px
+    opacity: 0.3
+    transform: rotate(-90deg)

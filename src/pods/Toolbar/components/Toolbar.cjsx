@@ -2,7 +2,7 @@ React = require 'react'
 ScheduleSelect = require './ScheduleSelect'
 Logo = require './Logo'
 require '../styles'
-
+UserCenter = require './UserCenter'
 
 module.exports = React.createClass
   displayName: 'Toolbar'
@@ -13,6 +13,6 @@ module.exports = React.createClass
         <ScheduleSelect event={@props.event} scheduleId={@props.scheduleId} />
       </div>
       <div className="right">
-        <a href="#/register">Registrierung</a>
+        <UserCenter event={@props.event} />
       </div>
     </div>

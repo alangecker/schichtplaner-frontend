@@ -27,6 +27,7 @@ module.exports = React.createClass
     delete data.password2
     delete data.submit
     delete data.step
+    data.eventId = @props.event.eventId
     UserActions.register(data)
 
   render: ->
